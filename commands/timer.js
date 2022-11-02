@@ -2,6 +2,7 @@ const { SlashCommandBuilder, SharedSlashCommandOptions } = require('discord.js')
 const wait = require('node:timers/promises').setTimeout;
 const { EmbedBuilder } = require('discord.js');
 
+
 module.exports = {
 	data: new SlashCommandBuilder()
 	    .setName('timer')
@@ -50,27 +51,24 @@ module.exports = {
         const formatted = formatTime(seconds);
         const FormattedEmbed = new EmbedBuilder()
 	    .setColor('#2f3136')
-	    .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__
-                        \`${name_cap}\` **»** ${formatted}`)
+	    .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__\n\`${name_cap}\` **»** ${formatted}`)
+    
 		await interaction.reply({ embeds: [FormattedEmbed] });
-        await wait(1000)
 
         // Set I as seconds and minus it by 1 after updating it and waiting 1 second  
-        for (i = total-1; i > 0; i--) {
-            const time = formatTime(i);
+        for (i = total-1; i >= 0; i--) {
+            await wait(1000)
+            let time = formatTime(i);
             const CountdownEmbed = new EmbedBuilder()
             .setColor('#2f3136')
-            .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__
-                            \`${name_cap}\` **»** ${time}`)
+            .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__\n\`${name_cap}\` **»** ${time}`)
             await interaction.editReply({ embeds: [CountdownEmbed] })
-            await wait(1000)
         }
 
         // Once the countdown has reached 1 second, edit to countdown complete and follow up with a mention.
         const Finished = new EmbedBuilder()
         .setColor('#2f3136')
-        .setDescription(`<:check:1037315609089822751> **|** __Countdown Timer__
-                        \`${name_cap}\`'s countdown timer has finished.`)
+        .setDescription(`<:check:1037315609089822751> **|** __Countdown Timer__\n\`${name_cap}\`'s countdown timer has finished.`)
         await interaction.editReply({ embeds: [Finished] })
         await interaction.followUp(`<@${interaction.user.id}>`);
 	},
