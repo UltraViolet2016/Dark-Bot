@@ -10,46 +10,39 @@ module.exports = {
 			    .setDescription('Give your countdown timer a name')
 			    .setRequired(true))
 	    .addIntegerOption(option =>
-		    option.setName('time')
-			    .setDescription('Select a number above 0 as a timer')
-			    .setRequired(true)
+		    option.setName('days')
+			    .setDescription('Number of days')
                 .setMinValue(0))
-	    .addStringOption(option =>
-		    option.setName('unit')
-			    .setDescription('Select a what time unit you are using')
-			    .setRequired(true)
-                .addChoices(
-                    { name: 'Days', value: 'd' },
-                    { name: 'Hours', value: 'h' },
-                    { name: 'Minutes', value: 'm'},
-                    { name: 'Seconds', value: 's'},
-                )),
+	    .addIntegerOption(option =>
+		    option.setName('hours')
+			    .setDescription('Number of hours')
+                .setMinValue(0))
+	    .addIntegerOption(option =>
+		    option.setName('minutes')
+			    .setDescription('Number of minutes')
+                .setMinValue(0))
+	    .addIntegerOption(option =>
+		    option.setName('seconds')
+			    .setDescription('Number of seconds')
+                .setMinValue(0)),
+
 	async execute(interaction) {
         const name = interaction.options.getString('name');
-		const time = interaction.options.getInteger('time');
-        const unit = interaction.options.getString('unit');
-		await interaction.reply(`${time}${unit}`);
+        const days = interaction.options.getInteger('days') ?? 0;
+        const hours = interaction.options.getInteger('hours') ?? 0;
+        const minutes = interaction.options.getInteger('minutes') ?? 0;
+        const seconds = interaction.options.getInteger('seconds') ?? 0;
+        const total = days * 86400 + hours * 3600 + minutes * 60 + seconds;
 
 
-        // Convert whatever time & unit they had to seconds for the countdown for loop timer
-        switch(unit) {
-            case "d":
-                seconds = time * 86400
-            case "h":
-                seconds = time * 3600;
-                break;
-            case "m":
-                seconds = time * 60;
-                break;
-            case "s":
-                seconds = time;
-                break;
-        }
-        // Instantly edited to below the time inputted so wait 1 second
+
+		await interaction.reply(`${total}s`);
+
+
         await wait(1000)
 
         // Set I as seconds and minus it by 1 after updating it and waiting 1 second  
-        for (i = seconds-1; i > 0; i--) {
+        for (i = total-1; i > 0; i--) {
             await interaction.editReply(`${i}s`)
             await wait(1000)
         }
