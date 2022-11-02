@@ -9,7 +9,7 @@ module.exports = {
 			    .setDescription('The input to echo back')
 			    .setRequired(true)),
 	async execute(interaction) {
-		const message = interaction.options.getString('input') ?? 'No message provided';
+		const message = interaction.options.getString('input');
 		await interaction.reply(`${message}`);
 	},
 };
