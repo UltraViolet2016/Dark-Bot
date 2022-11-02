@@ -45,17 +45,10 @@ module.exports = {
                 .replace(/\b(\d)\b/g, "0$1")
         }
 
-
-
-		await interaction.reply(`${total}s`);
-
-
-        await wait(1000)
-
         // Set I as seconds and minus it by 1 after updating it and waiting 1 second  
-        for (i = total-1; i > 0; i--) {
+        for (i = total; i > 0; i--) {
             const time = formatTime(i);
-            await interaction.editReply(`${time}s`)
+            await interaction.editReply(`${time}`)
             await wait(1000)
         }
 
