@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, SharedSlashCommandOptions } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -28,6 +29,7 @@ module.exports = {
 
 	async execute(interaction) {
         const name = interaction.options.getString('name');
+        let name_cap = name[0].toUpperCase() + name.substring(1)
         const days = interaction.options.getInteger('days') ?? 0;
         const hours = interaction.options.getInteger('hours') ?? 0;
         const minutes = interaction.options.getInteger('minutes') ?? 0;
@@ -45,22 +47,31 @@ module.exports = {
                 .replace(/\b(\d)\b/g, "0$1")
         }
 
-
         const formatted = formatTime(seconds);
-		await interaction.reply(`${formatted}`);
-
-
+        const FormattedEmbed = new EmbedBuilder()
+	    .setColor('#2f3136')
+	    .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__
+                        \`${name_cap}\` **»** ${formatted}`)
+		await interaction.reply({ embeds: [FormattedEmbed] });
         await wait(1000)
 
         // Set I as seconds and minus it by 1 after updating it and waiting 1 second  
         for (i = total-1; i > 0; i--) {
             const time = formatTime(i);
-            await interaction.editReply(`${time}s`)
+            const CountdownEmbed = new EmbedBuilder()
+            .setColor('#2f3136')
+            .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__
+                            \`${name_cap}\` **»** ${time}`)
+            await interaction.editReply({ embeds: [CountdownEmbed] })
             await wait(1000)
         }
 
         // Once the countdown has reached 1 second, edit to countdown complete and follow up with a mention.
-        await interaction.editReply(`${name}'s countdown timer has finished.`)
+        const Finished = new EmbedBuilder()
+        .setColor('#2f3136')
+        .setDescription(`<:check:1037315609089822751> **|** __Countdown Timer__
+                        \`${name_cap}\`'s countdown timer has finished.`)
+        await interaction.editReply({ embeds: [Finished] })
         await interaction.followUp(`<@${interaction.user.id}>`);
 	},
 };
