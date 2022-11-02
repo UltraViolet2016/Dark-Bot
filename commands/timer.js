@@ -33,6 +33,17 @@ module.exports = {
         const minutes = interaction.options.getInteger('minutes') ?? 0;
         const seconds = interaction.options.getInteger('seconds') ?? 0;
         const total = days * 86400 + hours * 3600 + minutes * 60 + seconds;
+        
+
+        function formatTime(seconds) {
+            return [
+                parseInt(seconds / 60 / 60),
+                parseInt(seconds / 60 % 60),
+                parseInt(seconds % 60)
+            ]
+                .join(":")
+                .replace(/\b(\d)\b/g, "0$1")
+        }
 
 
 
@@ -43,7 +54,8 @@ module.exports = {
 
         // Set I as seconds and minus it by 1 after updating it and waiting 1 second  
         for (i = total-1; i > 0; i--) {
-            await interaction.editReply(`${i}s`)
+            const time = formatTime(i);
+            await interaction.editReply(`${time}s`)
             await wait(1000)
         }
 
