@@ -1,5 +1,5 @@
 const { version } = require('../config.json');
-const { Client, GatewayIntentBits, ActivityType } = require('discord.js');
+const { ActivityType } = require('discord.js');
 
 module.exports = {
 	name: 'ready',

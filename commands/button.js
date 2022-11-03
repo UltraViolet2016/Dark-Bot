@@ -10,13 +10,18 @@ module.exports = {
         .setDescription('Creates a button'),
 
     async execute(interaction) {
+        const FormattedEmbed = new EmbedBuilder()
+	    .setColor('#2f3136')
+	    .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__\nHi`)
+    
+
         const row = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
-                .setCustomId('primary')
+                .setCustomId('cancel')
                 .setLabel('Click me!')
                 .setStyle(ButtonStyle.Primary),
         );
-        await interaction.reply({ content: 'click button', components: [row] });
+        await interaction.reply({ embeds: [FormattedEmbed], components: [row] });
     }
 }

@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('discord.js');
-const wait = require('node:timers/promises').setTimeout;
 const { EmbedBuilder } = require('discord.js');
 
 
@@ -12,6 +11,7 @@ module.exports = {
 		.setName('ping')
 		.setDescription('Replies with Pong!'),
 	async execute(interaction) {
-		await interaction.reply({ embeds: [Pong] });
+
+
 	},
 };

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, SharedSlashCommandOptions, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
@@ -28,46 +28,44 @@ module.exports = {
 
 	async execute(interaction) {
         const name = (interaction.options.getString('name'))[0].toUpperCase() + (interaction.options.getString('name')).substring(1);
-        const days = interaction.options.getInteger('days') ?? 0;
-        const hours = interaction.options.getInteger('hours') ?? 0;
-        const minutes = interaction.options.getInteger('minutes') ?? 0;
-        const seconds = interaction.options.getInteger('seconds') ?? 0;
+        const days = interaction.options.getInteger('days') ?? 0, hours = interaction.options.getInteger('hours') ?? 0;
+        const minutes = interaction.options.getInteger('minutes') ?? 0, seconds = interaction.options.getInteger('seconds') ?? 0;
         const total = days * 86400 + hours * 3600 + minutes * 60 + seconds;
         
         function formatTime(seconds) {
-            return [
-                parseInt(seconds / 60 / 60),
-                parseInt(seconds / 60 % 60),
-                parseInt(seconds % 60)
-            ]
-                .join(":")
-                .replace(/\b(\d)\b/g, "0$1")
+            return [ parseInt(seconds / 60 / 60), parseInt(seconds / 60 % 60), parseInt(seconds % 60)]
+                .join(":").replace(/\b(\d)\b/g, "0$1")
         }
 
-        const formatted = formatTime(seconds);
-        const FormattedEmbed = new EmbedBuilder()
+        const StartTime = formatTime(seconds);
+        const Start = new EmbedBuilder()
 	    .setColor('#2f3136')
-	    .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__\n\`${name}\` **»** ${formatted}`)
-    
-		await interaction.reply({ embeds: [FormattedEmbed] });
+        .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__\n\`${name}\` **»** ${StartTime}`)
+        await interaction.reply({ embeds: [Start] });
 
-        // Set I as seconds and minus it by 1 after updating it and waiting 1 second  
-        for (i = total-1; i >= 0; i--) {
-            let time = formatTime(i);
-            await wait(1000)
 
-            const CountdownEmbed = new EmbedBuilder()
-            .setColor('#2f3136')
-            .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__\n\`${name}\` **»** ${time}`)
+        try {
+            for (i = total-1; i >= 0; i--) {
+                let time = formatTime(i);
+                await wait(1000) 
 
-            await interaction.editReply({ embeds: [CountdownEmbed] })
-        }
+                const Countdown = new EmbedBuilder()
+                .setColor('#2f3136')
+                .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__\n\`${name}\` **»** ${time}`)
 
-        // Once the countdown has reached 1 second, edit to countdown complete and follow up with a mention.
+                await interaction.editReply({ embeds: [Countdown] })
+            }
+
+
         const Finished = new EmbedBuilder()
         .setColor('#2f3136')
         .setDescription(`<:check:1037315609089822751> **|** __Countdown Timer__\n\`${name}\`'s countdown timer has finished.`)
-        await interaction.editReply({ embeds: [Finished] })
-        await interaction.followUp(`<@${interaction.user.id}>`);
+            await interaction.editReply({ embeds: [Finished] })
+            await interaction.followUp(`<@${interaction.user.id}>`);
+            msg.reactions.removeAll()
+        }
+        catch {
+            console.log(`[DarkBot] ${name}'s timer has finished or has been deleted.`)
+        }
 	},
 };
