@@ -3,6 +3,7 @@ const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const { token } = require('./config.json');
+const print_table = require('./functions/print-table.js');
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -14,8 +15,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
-let category = 'Events';
-const print_table = require('./functions/print-table.js');
+let category = 'Commands';
 console.log(print_table(category));
 
 const eventsPath = path.join(__dirname, 'events');
