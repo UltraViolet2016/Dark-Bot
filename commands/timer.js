@@ -50,7 +50,5 @@ module.exports = {
         catch {
             console.log(`[DarkBot] ${name}'s timer has finished or has been deleted.`)
         }
-        // test
-
 	},
 };
