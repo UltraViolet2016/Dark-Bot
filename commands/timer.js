@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 const countdown = require('../embeds/timer/countdown.js');
 const finished = require('../embeds/timer/finished.js');
@@ -39,7 +39,7 @@ module.exports = {
         await interaction.reply({ embeds: [countdown(name, formatTime(seconds))] });
 
         try {
-            for (seconds = total-1; seconds >= 0; seconds--) {
+            for (let seconds = total-1; seconds >= 0; seconds--) {
                 await wait(1000) 
                 await interaction.editReply({ embeds: [countdown(name, formatTime(seconds))] })
             }
