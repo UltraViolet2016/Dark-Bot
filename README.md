@@ -1,2 +1,2 @@
-# DarkBot
-Discord bot written in Javascript
+# Dark Bot
+written with javascript
