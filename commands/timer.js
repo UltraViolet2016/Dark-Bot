@@ -1,5 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
+const countdown = require('../embeds/timer/countdown.js');
+const finished = require('../embeds/timer/finished.js');
+const formatTime = require('../embeds/timer/format-time.js');
 
 
 module.exports = {
@@ -32,37 +35,15 @@ module.exports = {
         const days = interaction.options.getInteger('days') ?? 0, hours = interaction.options.getInteger('hours') ?? 0;
         const minutes = interaction.options.getInteger('minutes') ?? 0, seconds = interaction.options.getInteger('seconds') ?? 0;
         const total = days * 86400 + hours * 3600 + minutes * 60 + seconds;
-        
-        function formatTime(seconds) {
-            return [ parseInt(seconds / 60 / 60), parseInt(seconds / 60 % 60), parseInt(seconds % 60)]
-                .join(":").replace(/\b(\d)\b/g, "0$1")
-        }
 
-        const StartTime = formatTime(seconds);
-        const Start = new EmbedBuilder()
-	    .setColor('#2f3136')
-        .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__\n\`${name}\` **»** ${StartTime}`)
-        await interaction.reply({ embeds: [Start] });
+        await interaction.reply({ embeds: [countdown(name, formatTime(seconds))] });
 
-
-        // use a boolean while loop statement inside a try catch
         try {
-            for (i = total-1; i >= 0; i--) {
-                let time = formatTime(i);
+            for (let seconds = total-1; seconds >= 0; seconds--) {
                 await wait(1000) 
-
-                const Countdown = new EmbedBuilder()
-                .setColor('#2f3136')
-                .setDescription(`<:clock:1037318080684113932> **|** __Countdown Timer__\n\`${name}\` **»** ${time}`)
-
-                await interaction.editReply({ embeds: [Countdown] })
+                await interaction.editReply({ embeds: [countdown(name, formatTime(seconds))] })
             }
-
-
-        const Finished = new EmbedBuilder()
-        .setColor('#2f3136')
-        .setDescription(`<:check:1037315609089822751> **|** __Countdown Timer__\n\`${name}\`'s countdown timer has finished.`)
-            await interaction.editReply({ embeds: [Finished] })
+            await interaction.editReply({ embeds: [finished(name)] })
             await interaction.followUp(`<@${interaction.user.id}>`);
             msg.reactions.removeAll()
         }
