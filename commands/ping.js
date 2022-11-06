@@ -11,6 +11,7 @@ module.exports = {
 		.setName('ping')
 		.setDescription('Replies with Pong!'),
 	async execute(interaction) {
+		interaction.reply({ embeds: [Pong] });
 
 
 	},

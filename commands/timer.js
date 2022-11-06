@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 
+
 module.exports = {
 	data: new SlashCommandBuilder()
 	    .setName('timer')
@@ -44,6 +45,7 @@ module.exports = {
         await interaction.reply({ embeds: [Start] });
 
 
+        // use a boolean while loop statement inside a try catch
         try {
             for (i = total-1; i >= 0; i--) {
                 let time = formatTime(i);
