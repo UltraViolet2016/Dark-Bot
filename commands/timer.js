@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 const countdown = require('../embeds/timer/countdown.js');
 const finished = require('../embeds/timer/finished.js');
