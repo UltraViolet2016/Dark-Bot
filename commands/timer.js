@@ -3,6 +3,7 @@ const wait = require('node:timers/promises').setTimeout;
 const countdown = require('../embeds/timer/countdown.js');
 const finished = require('../embeds/timer/finished.js');
 const formatTime = require('../embeds/timer/format-time.js');
+var fs = require('fs');
 
 
 module.exports = {
@@ -37,6 +38,13 @@ module.exports = {
         const total = days * 86400 + hours * 3600 + minutes * 60 + seconds;
 
         await interaction.reply({ embeds: [countdown(name, formatTime(seconds))] });
+
+        let date = Date.now()
+        let future = date + (1000 * total);
+        fs.appendFile('data/timers.txt', `${name} ${total} ${interaction.user.id} ${date} ${future}\n`, function (err) {
+            if (err) throw err;
+            console.log('Updated!');
+          });
 
         try {
             for (let seconds = total-1; seconds >= 0; seconds--) {

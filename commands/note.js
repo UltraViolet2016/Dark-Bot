@@ -1,6 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { EmbedBuilder } = require('discord.js');
-
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -19,9 +17,13 @@ module.exports = {
 		    option.setName('name')
 			    .setDescription('Name of the file')
                 .setRequired(true)),
-	async execute(interaction) {
+
+	async execute(interaction, message) {
         const action = interaction.options.getString('action');
         const name = interaction.options.getString('name');
-        interaction.reply('')
+
+
+
+        interaction.reply(``);
 	},
 };
