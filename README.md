@@ -4,7 +4,7 @@
 # Issues
 Click [here](https://github.com/darkoce8/DarkBot/issues) to report any issues
 
-# Known Issues
+## Known Issues
 Timer command does not work past 15 minutes due to the interaction token only being valid for 15 minutes 
 
 # Setup
