@@ -1,4 +1,5 @@
-Free and open source template bot
+# <p style="text-align:center"> Dark Bot</p>
+<p style="text-align:center"> Free and open source template bot </p>
 
 # Issues
 Click [here](https://github.com/darkoce8/DarkBot/issues) to report any issues
