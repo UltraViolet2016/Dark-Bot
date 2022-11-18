@@ -4,6 +4,7 @@ const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const { token } = require('./config.json');
 const print_table = require('./functions/print-table.js');
+const check_timer = require('./functions/check-timer.js');
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -14,6 +15,8 @@ for (const file of commandFiles) {
 	const command = require(filePath);
 	client.commands.set(command.data.name, command);
 }
+
+console.log(check_timer());
 
 let category = 'Commands';
 console.log(print_table(category));

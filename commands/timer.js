@@ -45,18 +45,20 @@ module.exports = {
             if (err) throw err;
             console.log('Updated!');
           });
+        
+
 
         try {
             for (let seconds = total-1; seconds >= 0; seconds--) {
                 await wait(1000) 
                 await interaction.editReply({ embeds: [countdown(name, formatTime(seconds))] })
             }
-            await interaction.editReply({ embeds: [finished(name)] })
+            await interaction.editReply({ embeds: [finished(name)] });
             await interaction.followUp(`<@${interaction.user.id}>`);
             msg.reactions.removeAll()
         }
         catch {
-            console.log(`[DarkBot] ${name}'s timer has finished or has been deleted.`)
+            console.log(`[DarkBot] ${name}'s timer has finished or has been deleted.`);
         }
 	},
 };

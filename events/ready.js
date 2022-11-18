@@ -13,5 +13,6 @@ module.exports = {
 		console.log(`[DarkBot] Running Version ${version}`);
 		client.user.setActivity("Dark's Server", { type: ActivityType.Watching });
 		client.user.setStatus('dnd');
+
 	},
 };
