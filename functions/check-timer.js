@@ -11,7 +11,4 @@ function check_timer() {
     return timestamps;
 }
 
-// how to print multiple values in a loop 
-
-
 module.exports = check_timer;
