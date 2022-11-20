@@ -1,6 +1,6 @@
 {
-	"token": "DISCORD-BOT-TOKEN",
-	"clientId": "DISCORD-BOT-CLIENT-ID",
-	"guildId": "GUILD-ID",
+    "token": "DISCORD-BOT-TOKEN",
+    "clientId": "DISCORD-BOT-CLIENT-ID",
+    "guildId": "GUILD-ID",
     "version": "1.0"
 }
