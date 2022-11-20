@@ -37,7 +37,7 @@ module.exports = {
         const minutes = interaction.options.getInteger('minutes') ?? 0, seconds = interaction.options.getInteger('seconds') ?? 0;
         const total = days * 86400 + hours * 3600 + minutes * 60 + seconds;
 
-        await interaction.reply({ embeds: [countdown(name, formatTime(seconds))] });
+        await interaction.reply(countdown(name, formatTime(seconds)));
 
         let date = Date.now()
         let future = date + (1000 * total);
