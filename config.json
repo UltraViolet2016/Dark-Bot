@@ -1,7 +1,7 @@
 {
-	"token": "MTA0Mzg3MDMyMjA2MDk2Nzk1Nw.GFBWAs.By1JPuyv9_xL0DD0dPvHYnGYb0A3iXEBYLdW60",
-	"clientId": "1043870322060967957",
-	"guildId": "791626504663990323",
-	"guildName": "server",
+    "token": "discord-bot-token",
+    "clientId": "discord-bot-client-id",
+    "guildId": "discord-guild-id",
+    "guildName": "discord-server-name",
     "version": "1.0"
 }
