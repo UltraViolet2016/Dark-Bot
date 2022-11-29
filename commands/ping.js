@@ -1,17 +1,13 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { EmbedBuilder } = require('discord.js');
-
-
-const Pong = new EmbedBuilder()
-	.setColor('#2f3136')
-	.setDescription('Pong!')
+const embedMessage = require('../embeds/general/general.js')
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('ping')
 		.setDescription('Replies with Pong!'),
 	async execute(interaction) {
-		interaction.reply({ embeds: [Pong] });
+		interaction.reply({ embeds: [embedMessage(`Pong!`)] });
 
 
 	},

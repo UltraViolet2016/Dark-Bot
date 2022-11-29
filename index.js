@@ -16,7 +16,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
-console.log(check_timer());
+//console.log(check_timer());
 
 let category = 'Commands';
 console.log(print_table(category));

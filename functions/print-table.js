@@ -33,8 +33,8 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('
         array.push(print_table_command(file))
     }
 
-    const gg = print_table_line() + '\n' + print_table_header(category) + '\n'+ print_table_line() + '\n' + array.join('\n') + '\n' + print_table_line();
-    return gg;
+    const Table = print_table_line() + '\n' + print_table_header(category) + '\n'+ print_table_line() + '\n' + array.join('\n') + '\n' + print_table_line();
+    return Table;
 
 }
 
