@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 const countdown = require('../embeds/timer/countdown.js');
 const finished = require('../embeds/timer/finished.js');
@@ -33,8 +33,10 @@ module.exports = {
 
 	async execute(interaction) {
         const name = (interaction.options.getString('name'))[0].toUpperCase() + (interaction.options.getString('name')).substring(1);
-        const days = interaction.options.getInteger('days') ?? 0, hours = interaction.options.getInteger('hours') ?? 0;
-        const minutes = interaction.options.getInteger('minutes') ?? 0, seconds = interaction.options.getInteger('seconds') ?? 0;
+        const days = interaction.options.getInteger('days') ?? 0;
+        const hours = interaction.options.getInteger('hours') ?? 0;
+        const minutes = interaction.options.getInteger('minutes') ?? 0;
+        const seconds = interaction.options.getInteger('seconds') ?? 0;
         const total = days * 86400 + hours * 3600 + minutes * 60 + seconds;
 
         await interaction.reply(countdown(name, formatTime(seconds)));
