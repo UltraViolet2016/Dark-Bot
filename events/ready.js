@@ -1,4 +1,4 @@
-const { version, guildName, botName} = require('../config.json');
+const { version, guildName, botName } = require('../config.json');
 const { ActivityType } = require('discord.js');
 const wait = require('node:timers/promises').setTimeout;
 
